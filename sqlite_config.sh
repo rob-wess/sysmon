@@ -1,13 +1,17 @@
 #!/bin/bash
 
-
-
 # Simple Bash Script to configure the sqlite database
 # NOTE: sqlite3 does not have a datatype for booleans. We're using INT with (0,1) allowed instead
 
 dbPath="./system.db"		# Script assumes the db file is in your CWD
 dbPath="$(realpath $dbPath)"	# Find full path to db file
 
+
+# Make sure db file exists
+if ! [ -f $dbPath ]; then
+	echo "Could not find $dbPath"
+	exit 1
+fi
 
 # Make sure sqlite3 is installed so we can avoid errors
 if ! [ $(which sqlite3) ]; then 
